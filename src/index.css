@@ -1,9 +1,9 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-  color-scheme: dark;
+  color-scheme: dark light;
   background-color: var(--dark);
-  color: var(--dark);
+  color: var(--light);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,6 +20,6 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --dark: #222;
-    --light: #aaa;
+    --light: #e2e2e2;
   }
 }
