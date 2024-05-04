@@ -1,28 +1,46 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import type { FactProp } from './types'
-import { fetching } from './helpers/factData'
 
 
 
 export default function App () {
 
-    const [ newFact , setNewFact ] = useState<FactProp>()
-    const [ firstWord , setFirstWord ] = useState<string>()
+    const [ newFact , setNewFact ] = useState<string>()
+    const [ newImgId , setNewImgId ] = useState<string>()
+    const [ word , setWord ] = useState<string>()
+ 
+    // useEffect(() => {
+    const updateFact = () => {
 
-    const handleFact = async () => {    
+        const FACT_API = "https://catfact.ninja/fact"
+        const IMAGE_API = "https://cataas.com/cat"
 
-        await fetching().then(setNewFact)
-        setFirstWord(newFact?.fact.split(' ')[0]) 
-        //try do this in the fetch AND FETCH THE IMAGE THEN BELLOW
-    
-        // Maby we could do a try/catch here and then call to the second fetch passing the prop and seting
-        // the data to a new state
+        fetch(FACT_API)
+            .then(resp => resp.json())
+            .then(data => {
+
+                const fact = data.fact
+                setNewFact(fact)            
+                const newFactWord = fact?.split(' ', 3).join(' ')
+                setWord(newFactWord)
+
+                fetch(`${IMAGE_API}/says/${newFactWord}?json=true`)
+                    .then(resp => resp.json())
+                    .then(data => {
+                        const { _id } = data
+                        setNewImgId(_id)
+                    }
+                    )
+            })
+    }
+
+    // }, [])
+
+    const handleFact = () => {
+        updateFact()
     }
 
     
-    
-
     return (
         <div className='container'>
             
@@ -32,10 +50,14 @@ export default function App () {
 
                 <button type='button' onClick={handleFact}>Generate Fact</button>
 
-                <p className='content-fact'>{newFact?.fact}</p>
-                <div className='content-img-container'>
-                    <img className='content-img' src="mock-car.avif" alt="cat image" />
-                </div>
+                    {(newFact && newImgId) && (
+                        <>
+                            <p className='content-fact'>{newFact}</p>
+                            <div className='content-img-container'>
+                                <img className='content-img' src={`https://cataas.com/cat/${newImgId}/says/${word}?fontColor=red`} alt="cat image" />
+                            </div> 
+                        </>
+                    )}
             </div>
 
         </div>

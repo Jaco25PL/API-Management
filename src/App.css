@@ -18,15 +18,19 @@
 }
 
 .content-fact{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1.5rem;
   text-align: center;
+  min-height: 8rem;
 }
 
 .content-img-container{
-  overflow: hidden;
+  /* overflow: hidden; */
   
-  width: 60rem;
-  height: 40rem;
+  /* width: 60rem; */
+  /* height: 40rem; */
   border-radius: .5rem;
   -webkit-border-radius: .5rem;
   -moz-border-radius: .5rem;
