@@ -14,8 +14,10 @@ export default function App () {
     // useEffect(() => {
     const updateFact = async () => {
 
-        await fetchFact().then(setNewFact)
-
+        // await fetchFact().then(setNewFact)
+        const { fact, slicedFact } = await fetchFact()
+        setNewFact(fact)
+        setWord(slicedFact)
 
         if(newFact){
             await fetchImage({word}).then(setNewImgId)
@@ -65,7 +67,7 @@ export default function App () {
 
                 <button type='button' onClick={handleFact}>Generate Fact</button>
 
-                    {(newFact && newImgId) && (
+                    {(newFact) && (
                         <>
                             <p className='content-fact'>{newFact}</p>
                             <div className='content-img-container'>
