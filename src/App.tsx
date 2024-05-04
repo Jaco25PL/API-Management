@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-
-
+import { fetchFact } from './services/fetchFact'
+import { fetchImage } from './services/fetchImage'
 
 export default function App () {
 
@@ -9,29 +9,45 @@ export default function App () {
     const [ newImgId , setNewImgId ] = useState<string>()
     const [ word , setWord ] = useState<string>()
  
+    
+
     // useEffect(() => {
-    const updateFact = () => {
+    const updateFact = async () => {
 
-        const FACT_API = "https://catfact.ninja/fact"
-        const IMAGE_API = "https://cataas.com/cat"
+        await fetchFact().then(setNewFact)
 
-        fetch(FACT_API)
-            .then(resp => resp.json())
-            .then(data => {
 
-                const fact = data.fact
-                setNewFact(fact)            
-                const newFactWord = fact?.split(' ', 3).join(' ')
-                setWord(newFactWord)
+        if(newFact){
+            await fetchImage({word}).then(setNewImgId)
+        }
+        // try {
+            
 
-                fetch(`${IMAGE_API}/says/${newFactWord}?json=true`)
-                    .then(resp => resp.json())
-                    .then(data => {
-                        const { _id } = data
-                        setNewImgId(_id)
-                    }
-                    )
-            })
+
+        // } catch (error) {
+            // throw error
+        // }
+
+        // const FACT_API = "https://catfact.ninja/fact"
+        // const IMAGE_API = "https://cataas.com/cat"
+
+        // fetch(FACT_API)
+        //     .then(resp => resp.json())
+        //     .then(data => {
+
+        //         const fact = data.fact
+        //         setNewFact(fact)            
+        //         const newFactWord = fact?.split(' ', 3).join(' ')
+        //         setWord(newFactWord)
+
+        //         fetch(`${IMAGE_API}/says/${newFactWord}?json=true`)
+        //             .then(resp => resp.json())
+        //             .then(data => {
+        //                 const { _id } = data
+        //                 setNewImgId(_id)
+        //             }
+        //             )
+        //     })
     }
 
     // }, [])
@@ -39,7 +55,6 @@ export default function App () {
     const handleFact = () => {
         updateFact()
     }
-
     
     return (
         <div className='container'>
