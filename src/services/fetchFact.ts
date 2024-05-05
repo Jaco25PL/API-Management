@@ -1,7 +1,6 @@
 interface Response {
     fact: string
     slicedFact: string
-    // length: number
 }
 
 const FACT_API = "https://catfact.ninja/fact"
@@ -20,7 +19,6 @@ export async function fetchFact (): Promise<Response> {
             fact,
             slicedFact
         }
-        
 
     } catch (error) {
         console.error("Error fetching data: ", error)

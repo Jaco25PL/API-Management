@@ -8,7 +8,7 @@ export async function fetchImage ({ word }: Props) {
  
     try {
         const response = await fetch(`${IMAGE_API}/says/${word}?json=true`)    
-        if(!response.ok) throw new Error(`Error fetching data. Status: ${(await response).status}`)
+        if(!response.ok) throw new Error(`Error fetching data. Status: ${response.status}`)
 
         const data = await response.json()
         const { _id: ID } = await data
