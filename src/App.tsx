@@ -31,7 +31,7 @@ export default function App () {
         }
     }
 
-    const handleFact = () => {
+    const handleCat = () => {
         updateFact()
     }
     
@@ -41,7 +41,7 @@ export default function App () {
             <h1 className='title'>Techical Test</h1>
 
             <div className='content-container'>
-                <button type='button' onClick={handleFact}>Generate Fact</button>
+                <button className='btn' type='button' onClick={handleCat}>Generate Fact</button>
 
                 <Content word={word} newFact={newFact} newImgId={newImgId} isLoading={isLoading} />
             </div>
