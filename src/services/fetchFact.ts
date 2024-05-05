@@ -12,7 +12,7 @@ export async function fetchFact (): Promise<Response> {
 
         const data: Response = await response.json()
         
-        const fact = data.fact
+        const { fact } = data
         const slicedFact = fact.split(' ', 3).join(' ')
 
         return {
